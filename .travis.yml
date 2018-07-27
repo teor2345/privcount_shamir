@@ -25,6 +25,9 @@ matrix:
     - rust: beta
       os: osx
 
+before_install:
+  - echo "$TRAVIS_RUST_VERSION"
+
 script:
   - cd rust
   - cargo build --verbose
