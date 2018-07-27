@@ -31,7 +31,10 @@ pub struct CounterData {
     pub tr_data: Vec<TrData>,
 }
 
+// clippy warns that &'static is redundant, but it's required for strings
+#[cfg_attr(feature = "cargo-clippy", allow(const_static_lifetime))]
 pub const SEED_ENCRYPTION_TWEAK: &'static [u8] = b"privctr-seed-v1";
+#[cfg_attr(feature = "cargo-clippy", allow(const_static_lifetime))]
 pub const Y_ENCRYPTION_TWEAK: &'static [u8] = b"privctr-shares-v1";
 
 pub const SEED_LEN: usize = 32;
