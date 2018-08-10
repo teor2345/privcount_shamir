@@ -36,8 +36,7 @@ impl ServerKeys {
         }
 
         // It is for us.  Recover the encrypted things.
-        let dec =
-            PrivcountDecryptor::new(&self.enc_secret, &self.public.signing_key);
+        let dec = PrivcountDecryptor::new(&self.enc_secret, &self.public.signing_key);
 
         let seedval = dec
             .decrypt(&data.encrypted_seed, SEED_ENCRYPTION_TWEAK)

@@ -85,11 +85,7 @@ where
     // Split a secret 'N' according to the given parameters.
     //
     // (The security of this scheme is only as good as the RNG you use.)
-    pub fn share_secret<R: Rng>(
-        &self,
-        secret: N,
-        rng: &mut R,
-    ) -> Vec<Share<N>> {
+    pub fn share_secret<R: Rng>(&self, secret: N, rng: &mut R) -> Vec<Share<N>> {
         // Generate a random polynomial with Y intercept of secret.
         let mut poly = Vec::with_capacity(self.k);
         for _ in 1..(self.k) {

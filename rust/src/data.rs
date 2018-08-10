@@ -54,12 +54,7 @@ impl CounterData {
 }
 
 impl TrData {
-    pub fn new(
-        keys: &TrKeys,
-        encrypted_seed: Vec<u8>,
-        x: FE,
-        encrypted_counters: Vec<u8>,
-    ) -> Self {
+    pub fn new(keys: &TrKeys, encrypted_seed: Vec<u8>, x: FE, encrypted_counters: Vec<u8>) -> Self {
         TrData {
             keys: keys.clone(),
             encrypted_seed,

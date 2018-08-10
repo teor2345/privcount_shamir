@@ -39,8 +39,7 @@ pub mod hybrid {
     pub const PK_PUBLIC_LEN: usize = 32;
     pub const PK_SECRET_LEN: usize = 32;
     pub const SIGNING_PUBLIC_LEN: usize = 32;
-    pub const ENCRYPTED_OVERHEAD: usize =
-        PK_PUBLIC_LEN + SALT_LEN + MAC_OUT_LEN;
+    pub const ENCRYPTED_OVERHEAD: usize = PK_PUBLIC_LEN + SALT_LEN + MAC_OUT_LEN;
 
     pub struct PrivcountEncryptor {
         key: [u8; PK_PUBLIC_LEN],
@@ -48,10 +47,7 @@ pub mod hybrid {
     }
 
     impl PrivcountEncryptor {
-        pub fn new(
-            key: &[u8; PK_PUBLIC_LEN],
-            signing_key: &[u8; SIGNING_PUBLIC_LEN],
-        ) -> Self {
+        pub fn new(key: &[u8; PK_PUBLIC_LEN], signing_key: &[u8; SIGNING_PUBLIC_LEN]) -> Self {
             PrivcountEncryptor {
                 key: *key,
                 signing_key: *signing_key,
@@ -86,8 +82,7 @@ pub mod hybrid {
             result.extend_from_slice(&pubkey_tmp);
             result.extend_from_slice(&salt);
 
-            let mut cipher =
-                aes::ctr(aes::KeySize::KeySize256, enc_key, enc_iv);
+            let mut cipher = aes::ctr(aes::KeySize::KeySize256, enc_key, enc_iv);
             let prefix_len = result.len();
             result.resize(prefix_len + inp.len(), 0);
             cipher.process(&inp, &mut result[prefix_len..]);
@@ -106,12 +101,7 @@ pub mod hybrid {
         salt
     }
 
-    fn generate_keys(
-        secret_input: &[u8],
-        string_const: &[u8],
-        salt: &[u8],
-        output: &mut [u8],
-    ) {
+    fn generate_keys(secret_input: &[u8], string_const: &[u8], salt: &[u8], output: &mut [u8]) {
         let mut xof = sha3::Sha3::shake_256();
         xof.input(secret_input);
         xof.input(salt);
@@ -179,8 +169,7 @@ pub mod hybrid {
                 return None;
             }
 
-            let mut cipher =
-                aes::ctr(aes::KeySize::KeySize256, enc_key, enc_iv);
+            let mut cipher = aes::ctr(aes::KeySize::KeySize256, enc_key, enc_iv);
             let mut result = Vec::new();
             result.resize(enc.len(), 0);
             cipher.process(&enc, &mut result);
